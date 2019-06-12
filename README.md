@@ -1,6 +1,3 @@
-# AT3_MajorProject
+# Flappy Bird
 
-Use this repository to store all your documents, code and media assiciated with your major project.
-You should also use the project tools to plan the project.
-I recommend you use the wiki tool for your documents such as User Manual, Data dictionary, Structure chart, Test reports etc.
-Once you start your project you should replace the text of this file with a description of your project and its current status.
+Game currently prints out the menu screen stub and the main function stub. It imports a lot of the sprites which are chosen in a random order. It also displays the pygame window 
