@@ -42,7 +42,7 @@ loopRate = 30  # sets max speed of main loop
 P.init() 
 SCREENWIDTH  = 288 #sets screen width
 SCREENHEIGHT = 512 #sets screen height
-BASEY = SCREENHEIGHT * 0.79 #sets the value 
+BASEY = SCREENHEIGHT * 0.79 #sets the value of where base is
 PIPEGAPSIZE = 100 #sets gap size between pipe
 BLACK = (0,0,0) #creates colour black
 WHITE = (255,255,255) #creates colour white
@@ -83,35 +83,24 @@ PIPES_LIST = (
     'media/pipe-red.png'
 )
 
-
+xrange = range #used for creating lists
 
 
 def main():
-    print("main Stub")
-    global clock, SCREEN
+    global clock, SCREEN #creates gloabal variables for clock and SCREEN
     
     
     clock = pygame.time.Clock()  # creates clock to limit frames per second
-    SCREEN = pygame.display.set_mode((SCREENWIDTH, SCREENHEIGHT))
-    pygame.display.set_caption('Flappy Bird')
+    SCREEN = pygame.display.set_mode((SCREENWIDTH, SCREENHEIGHT)) #displays screen
+    pygame.display.set_caption('Flappy Bird') #sets caption equal to flappy bird
     
-    IMAGES['numbers'] = (
-        P.image.load('media/0.png').convert_alpha(),
-        P.image.load('media/1.png').convert_alpha(),
-        P.image.load('media/2.png').convert_alpha(),
-        P.image.load('media/3.png').convert_alpha(),
-        P.image.load('media/4.png').convert_alpha(),
-        P.image.load('media/5.png').convert_alpha(),
-        P.image.load('media/6.png').convert_alpha(),
-        P.image.load('media/7.png').convert_alpha(),
-        P.image.load('media/8.png').convert_alpha(),
-        P.image.load('media/9.png').convert_alpha()
-    )
+    '''loads and randomises sprites to choose different setups each time'''
+    
     
     IMAGES['menu'] = pygame.image.load('media/menu.png').convert_alpha()
     IMAGES['base'] = pygame.image.load('media/base.png').convert_alpha()
     IMAGES['help'] = pygame.image.load('media/help.png').convert_alpha()
-    IMAGES['gameover'] = pygame.image.load('media/gameover.png').convert_alpha()
+    
         
 
     
@@ -132,7 +121,7 @@ def main():
             pygame.image.load(PIPES_LIST[pipeIndex]).convert_alpha(), False, True),
             pygame.image.load(PIPES_LIST[pipeIndex]).convert_alpha(),
             )
-            # hismask for pipes
+            # hitmask for pipes
         HITMASKS['pipe'] = (
             getHitMask(IMAGES['pipe'][0]),
             getHitMask(IMAGES['pipe'][1])
@@ -158,15 +147,15 @@ def main():
     
 
 def menuScreen():
-    print("Menu Screen Stub")
+
     
-    playerIndex = 0
+    playerIndex = 0 #sets the player index to 0
     playerIndexGen = cycle([0, 1, 2, 1])
     
-    basex = 0
+    basex = 0 #sets value of basex to 0
     
-    playerx = int(SCREENWIDTH * 0.2)
-    playery = int((SCREENHEIGHT - IMAGES['player'][0].get_height()) /2)
+    playerx = int(SCREENWIDTH * 0.2) #sets value of playerx to half of the Screen width
+    playery = int((SCREENHEIGHT - IMAGES['player'][0].get_height()) /2) #sets playery to 
     
     
     
@@ -206,7 +195,7 @@ def menuScreen():
 
 
 def mainGame(movementInfo):
-    print("Main Game Stub")
+
     
     playerIndex = 0
     loopIter = 0
@@ -330,7 +319,6 @@ def mainGame(movementInfo):
         clock.tick(loopRate)
     
 def gameOverScreen(crashInfo):
-    print("Game over Screen Stub")
     
     score = crashInfo['score']
     showScore(score)
@@ -376,7 +364,7 @@ def gameOverScreen(crashInfo):
     
             
 def helpScreen():
-    print("helpScreen Stub")
+
     # game loop - runs loopRate times a second!
     while True:  # game loop - note:  everything in this loop is indented one tab
 
@@ -398,7 +386,7 @@ def helpScreen():
 
     
 def highScoreScreen():
-    print("highscorescreen stub")
+
     
     while True:  # game loop - note:  everything in this loop is indented one tab
 
@@ -446,7 +434,7 @@ def highScoreScreen():
         
     
 def getRandomPipe():
-    print("Random Pipe Stub")
+
     
     gapY = rand.randrange(0, int(BASEY * 0.6 - PIPEGAPSIZE))
     gapY += int(BASEY * 0.2)
@@ -458,7 +446,7 @@ def getRandomPipe():
         { 'x': pipeX, 'y': gapY + PIPEGAPSIZE }, #lower pipe
     ]
 def showScore(score):
-    print("SHow Score Stub")
+
     
     pipesPassed = 0
     
@@ -475,6 +463,7 @@ def showScore(score):
     
 
 def crashCheck(player, upperPipes, lowerPipes):
+    '''hecks for possible crash in program'''
     playerIndex = player['index']
     player['w'] = IMAGES['player'][0].get_width()
     player['h'] = IMAGES['player'][0].get_height()
@@ -507,7 +496,7 @@ def crashCheck(player, upperPipes, lowerPipes):
     return [False, False]
     
 def pixelCollision(rect1,rect2, hm1, hm2):
-    """checks if two objects have collided, using hitmasks"""
+    """checks if two objects have collided using hitmasks"""
     rect = rect1.clip(rect2)
 
     if rect.width == 0 or rect.height == 0:
